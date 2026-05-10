@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package com.pratyabhi.notification.events.v1;
+
+import "com/pratyabhi/notification/events/v1/activity.proto";
+
+option java_multiple_files = true;
+option java_package = "com.pratyabhi.notification.events.v1";
+
+// Enriched, per-channel notification dispatch produced by the router.
+// Published to Pulsar topic notification.dispatch
+// (persistent://public/default/notification-dispatch) with message key = recipient_id
+// for per-recipient ordering under a key_shared subscription.
+message NotificationDispatch {
+  // Unique dispatch id (UUID string).
+  string dispatch_id = 1;
+  // event_id of the originating ActivityEvent (for tracing / replay).
+  string source_event_id = 2;
+  // Idempotency key carried over from the activity event (used for dedup audits).
+  string source_idempotency_key = 3;
+  // Pulsar message key (per-recipient ordering).
+  string recipient_id = 4;
+  ActivityType activity_type = 5;
+  Channel channel = 6;
+  // Channel-specific destination (FCM/APNs token, email address, etc.).
+  string destination = 7;
+  string locale = 8;
+  string timezone = 9;
+  int64 occurred_at_epoch_ms = 10;
+  int64 dispatched_at_epoch_ms = 11;
+  // Carried over from the activity event for downstream templating.
+  map<string, string> attributes = 12;
+}
+
+enum Channel {
+  CHANNEL_UNSPECIFIED = 0;
+  CHANNEL_PUSH_FCM = 1;
+  CHANNEL_PUSH_APNS = 2;
+  CHANNEL_EMAIL = 3;
+}

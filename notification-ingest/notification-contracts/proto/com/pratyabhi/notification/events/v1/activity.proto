@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package nepleaks.events.v1;
+package com.pratyabhi.notification.events.v1;
 
 option java_multiple_files = true;
-option java_package = "nepleaks.events.v1";
+option java_package = "com.pratyabhi.notification.events.v1";
 
 // Canonical activity event published to Pulsar topic activity-events (persistent://public/default/activity-events).
 message ActivityEvent {

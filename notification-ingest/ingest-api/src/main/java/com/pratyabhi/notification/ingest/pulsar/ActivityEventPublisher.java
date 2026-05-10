@@ -1,6 +1,6 @@
 package com.pratyabhi.notification.ingest.pulsar;
 
-import nepleaks.events.v1.ActivityEvent;
+import com.pratyabhi.notification.events.v1.ActivityEvent;
 
 public interface ActivityEventPublisher {
 

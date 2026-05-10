@@ -6,6 +6,23 @@ services:
       - "6650:6650"
       - "8085:8080"
 
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: notifications
+      POSTGRES_USER: notifications
+      POSTGRES_PASSWORD: notifications
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    ports:
+      - "6379:6379"
+
   ingest-api:
     build:
       context: ..
@@ -20,6 +37,31 @@ services:
     depends_on:
       - pulsar
 
+  notification-router:
+    build:
+      context: ..
+      dockerfile: notification-ingest/notification-router/Dockerfile
+    ports:
+      - "8081:8081"
+    environment:
+      DATASOURCE_URL: jdbc:postgresql://postgres:5432/notifications
+      DATASOURCE_USERNAME: notifications
+      DATASOURCE_PASSWORD: notifications
+      REDIS_HOST: redis
+      REDIS_PORT: "6379"
+      ROUTER_PULSAR_ENABLED: "true"
+      ROUTER_REGISTRY_MODE: jdbc
+      ROUTER_DEDUP_MODE: redis
+      ROUTER_FLAGS_MODE: redis
+      PULSAR_SERVICE_URL: pulsar://pulsar:6650
+      PULSAR_ACTIVITY_TOPIC: persistent://public/default/activity-events
+      PULSAR_DISPATCH_TOPIC: persistent://public/default/notification-dispatch
+      PULSAR_ACTIVITY_SUBSCRIPTION: router-activity
+    depends_on:
+      - pulsar
+      - postgres
+      - redis
+
   prometheus:
     image: prom/prometheus:v3.1.0
     ports:
@@ -28,3 +70,7 @@ services:
       - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml:ro
     depends_on:
       - ingest-api
+      - notification-router
+
+volumes:
+  postgres-data:

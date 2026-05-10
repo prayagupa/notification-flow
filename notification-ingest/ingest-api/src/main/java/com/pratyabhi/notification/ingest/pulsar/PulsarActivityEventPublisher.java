@@ -1,6 +1,6 @@
 package com.pratyabhi.notification.ingest.pulsar;
 
-import nepleaks.events.v1.ActivityEvent;
+import com.pratyabhi.notification.events.v1.ActivityEvent;
 import org.apache.pulsar.client.api.Producer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

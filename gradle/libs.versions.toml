@@ -1,5 +1,6 @@
 [versions]
-spring-boot = "3.4.2"
+# 3.5.5+ adds JDK 25 support (Spring Framework 6.2.5+ bundles ASM 9.8 for class file v69).
+spring-boot = "3.5.10"
 spring-dependency-management = "1.1.7"
 protobuf-plugin = "0.9.4"
 protobuf = "4.29.3"

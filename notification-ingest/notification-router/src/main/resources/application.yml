@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: notification-router
+  datasource:
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5432/notifications}
+    username: ${DATASOURCE_USERNAME:notifications}
+    password: ${DATASOURCE_PASSWORD:notifications}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate.jdbc.time_zone: UTC
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+server:
+  port: ${SERVER_PORT:8081}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+router:
+  pulsar-enabled: ${ROUTER_PULSAR_ENABLED:true}
+  registry-mode: ${ROUTER_REGISTRY_MODE:jdbc}
+  dedup-mode: ${ROUTER_DEDUP_MODE:redis}
+  flags-mode: ${ROUTER_FLAGS_MODE:redis}
+  dedup-ttl-seconds: ${ROUTER_DEDUP_TTL_SECONDS:86400}
+  routing-flag: ${ROUTER_ROUTING_FLAG:router.enabled}
+
+pulsar:
+  service-url: ${PULSAR_SERVICE_URL:pulsar://localhost:6650}
+  activity-topic: ${PULSAR_ACTIVITY_TOPIC:persistent://public/default/activity-events}
+  dispatch-topic: ${PULSAR_DISPATCH_TOPIC:persistent://public/default/notification-dispatch}
+  activity-subscription: ${PULSAR_ACTIVITY_SUBSCRIPTION:router-activity}
+
+logging:
+  level:
+    com.pratyabhi.notification.router: INFO

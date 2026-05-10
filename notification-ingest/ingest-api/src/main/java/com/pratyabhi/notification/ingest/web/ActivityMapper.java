@@ -1,13 +1,13 @@
 package com.pratyabhi.notification.ingest.web;
 
-import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_COMMENT_CREATED;
-import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_MESSAGE_SENT;
-import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_POST_LIKED;
-import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_UNSPECIFIED;
+import static com.pratyabhi.notification.events.v1.ActivityType.ACTIVITY_TYPE_COMMENT_CREATED;
+import static com.pratyabhi.notification.events.v1.ActivityType.ACTIVITY_TYPE_MESSAGE_SENT;
+import static com.pratyabhi.notification.events.v1.ActivityType.ACTIVITY_TYPE_POST_LIKED;
+import static com.pratyabhi.notification.events.v1.ActivityType.ACTIVITY_TYPE_UNSPECIFIED;
 
+import com.pratyabhi.notification.events.v1.ActivityEvent;
+import com.pratyabhi.notification.events.v1.ActivityType;
 import java.util.UUID;
-import nepleaks.events.v1.ActivityEvent;
-import nepleaks.events.v1.ActivityType;
 
 final class ActivityMapper {
 
