@@ -29,7 +29,7 @@ java {
     toolchain {
         languageVersion.set(
             JavaLanguageVersion.of(
-                providers.gradleProperty("jdk.language.version").getOrElse("22").toInt(),
+                providers.gradleProperty("jdk.language.version").getOrElse("25").toInt(),
             ),
         )
     }

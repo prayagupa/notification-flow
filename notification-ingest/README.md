@@ -2,7 +2,7 @@
 
 Implements **Phase 0 (foundations)** and **Phase 1 (contracts & ingest)** from [`docs/execution-plan.md`](../docs/execution-plan.md):
 
-- **Maven multi-module** Java project (`notification-contracts` protobuf + `ingest-api` Spring Boot).
+- **Gradle Kotlin DSL monorepo** (repo root): modules `notification-contracts` (protobuf) + `ingest-api` (Spring Boot).
 - **Apache Pulsar** via Docker Compose for local dev; topic default `persistent://public/default/activity-events`.
 - **Prometheus** scrapes `/actuator/prometheus`.
 - **Kubernetes** namespace manifest: `deploy/k8s/namespace.yaml`.
@@ -11,19 +11,18 @@ Implements **Phase 0 (foundations)** and **Phase 1 (contracts & ingest)** from [
 
 ## Prerequisites
 
-- **JDK 22+** (SDS targets **JDK 25**; use `-Pjdk25` on the parent POM when your toolchain supports it).
-- **Maven 3.6.3+** (parent POM aligns with Spring Boot 3.4).
+- **JDK 25** (toolchain default; see `gradle.properties` / `jdk.language.version`). For local override, set `jdk.language.version` in `gradle.properties` or pass `-Pjdk.language.version=22` if you must compile on an older JDK.
+- **Gradle**: use the repo **wrapper** (`./gradlew` from repository root). **Gradle 9.1+** is required to *run* Gradle on JDK 25.
 - Optional: **Buf CLI** for lint (`brew install bufbuild/buf/buf`).
 
 ## Local run (no Docker)
 
-Start Pulsar separately, then:
+From the **repository root**, start Pulsar separately, then:
 
 ```bash
 export INGEST_API_KEYS=dev-local-key
 export PULSAR_SERVICE_URL=pulsar://localhost:6650
-cd notification-ingest
-mvn -pl ingest-api spring-boot:run
+./gradlew :ingest-api:bootRun
 ```
 
 OpenAPI UI: `http://localhost:8080/swagger-ui/index.html`
@@ -53,9 +52,10 @@ Prometheus: `http://localhost:9090` (targets `ingest-api:8080` on the compose ne
 
 ## Tests
 
+From the **repository root**:
+
 ```bash
-cd notification-ingest
-mvn verify
+./gradlew build
 ```
 
 Integration tests use **`ingest.pulsar-enabled=false`** so no broker is required.
