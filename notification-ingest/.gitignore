@@ -1,0 +1,5 @@
+# Prefer repo-root .gitignore for Gradle/Maven/IDE; module-specific extras below.
+target/
+.idea/
+*.iml
+.DS_Store

@@ -1,0 +1,30 @@
+services:
+  pulsar:
+    image: apachepulsar/pulsar:3.3.6
+    command: bin/pulsar standalone
+    ports:
+      - "6650:6650"
+      - "8085:8080"
+
+  ingest-api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      INGEST_API_KEYS: ${INGEST_API_KEYS:-dev-local-key}
+      INGEST_PULSAR_ENABLED: "true"
+      PULSAR_SERVICE_URL: pulsar://pulsar:6650
+      PULSAR_TOPIC: persistent://public/default/activity-events
+    depends_on:
+      - pulsar
+
+  prometheus:
+    image: prom/prometheus:v3.1.0
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./deploy/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - ingest-api

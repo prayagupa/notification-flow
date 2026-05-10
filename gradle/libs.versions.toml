@@ -1,0 +1,17 @@
+[versions]
+spring-boot = "3.4.2"
+spring-dependency-management = "1.1.7"
+protobuf-plugin = "0.9.4"
+protobuf = "4.29.3"
+pulsar = "3.3.6"
+springdoc = "2.8.4"
+
+[libraries]
+protobuf-java = { module = "com.google.protobuf:protobuf-java", version.ref = "protobuf" }
+pulsar-client = { module = "org.apache.pulsar:pulsar-client", version.ref = "pulsar" }
+springdoc-openapi = { module = "org.springdoc:springdoc-openapi-starter-webmvc-ui", version.ref = "springdoc" }
+
+[plugins]
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+protobuf = { id = "com.google.protobuf", version.ref = "protobuf-plugin" }

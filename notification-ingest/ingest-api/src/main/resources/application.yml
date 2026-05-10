@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: ingest-api
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+ingest:
+  api-keys: ${INGEST_API_KEYS:dev-local-key}
+  pulsar-enabled: ${INGEST_PULSAR_ENABLED:true}
+
+pulsar:
+  service-url: ${PULSAR_SERVICE_URL:pulsar://localhost:6650}
+  topic: ${PULSAR_TOPIC:persistent://public/default/activity-events}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+  api-docs:
+    path: /v3/api-docs
+
+logging:
+  level:
+    com.nepleaks.notification.ingest: INFO

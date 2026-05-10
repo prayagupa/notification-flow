@@ -1,0 +1,31 @@
+# Gradle (monorepo / notification-ingest)
+.gradle/
+build/
+
+# Maven (legacy Clojure/Java modules)
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+release.properties
+dependency-reduced-pom.xml
+
+# Kotlin
+.kotlin/
+
+# IDE
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & temp
+*.log
+*.tmp
+*.bak

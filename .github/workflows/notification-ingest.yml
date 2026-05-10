@@ -1,0 +1,42 @@
+name: notification-ingest CI
+
+on:
+  push:
+    paths:
+      - "notification-ingest/**"
+      - "gradle/**"
+      - "gradlew"
+      - "gradlew.bat"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle.properties"
+      - ".github/workflows/notification-ingest.yml"
+  pull_request:
+    paths:
+      - "notification-ingest/**"
+      - "gradle/**"
+      - "gradlew"
+      - "gradlew.bat"
+      - "settings.gradle.kts"
+      - "build.gradle.kts"
+      - "gradle.properties"
+      - ".github/workflows/notification-ingest.yml"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "22"
+          cache: gradle
+      - uses: bufbuild/buf-setup-action@v1
+        with:
+          version: 1.47.2
+      - name: Buf lint (protobuf contracts)
+        working-directory: notification-ingest/notification-contracts
+        run: buf lint
+      - name: Gradle build (contracts + ingest-api)
+        run: chmod +x gradlew && ./gradlew build --no-daemon

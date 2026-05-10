@@ -1,2 +1,1 @@
-nepleaks
-------------
+Notification platform work for Phase 0–1 lives under **`notification-ingest/`** — see [`notification-ingest/README.md`](notification-ingest/README.md). Architecture and roadmap: [`docs/sds.md`](docs/sds.md), [`docs/execution-plan.md`](docs/execution-plan.md).

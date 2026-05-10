@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package nepleaks.events.v1;
+
+option java_multiple_files = true;
+option java_package = "nepleaks.events.v1";
+
+// Canonical activity event published to Pulsar topic activity-events (persistent://public/default/activity-events).
+message ActivityEvent {
+  // Unique event id (UUID string) for tracing.
+  string event_id = 1;
+  // Client-supplied idempotency key (HTTP Idempotency-Key or body).
+  string idempotency_key = 2;
+  // Pulsar message key: ordering is per recipient (key_shared subscription).
+  string recipient_id = 3;
+  ActivityType activity_type = 4;
+  int64 occurred_at_epoch_ms = 5;
+  // Calling service name (e.g. messaging, social-feed).
+  string source_service = 6;
+  map<string, string> attributes = 7;
+}
+
+enum ActivityType {
+  ACTIVITY_TYPE_UNSPECIFIED = 0;
+  ACTIVITY_TYPE_MESSAGE_SENT = 1;
+  ACTIVITY_TYPE_POST_LIKED = 2;
+  ACTIVITY_TYPE_COMMENT_CREATED = 3;
+}
