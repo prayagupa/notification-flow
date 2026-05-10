@@ -1,0 +1,46 @@
+spring:
+  application:
+    name: delivery-worker
+
+server:
+  port: ${SERVER_PORT:8082}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+delivery:
+  pulsar-enabled: ${DELIVERY_PULSAR_ENABLED:true}
+  max-inline-retries: ${DELIVERY_MAX_INLINE_RETRIES:2}
+  max-topic-attempts: ${DELIVERY_MAX_TOPIC_ATTEMPTS:4}
+  backoff-base-ms: ${DELIVERY_BACKOFF_BASE_MS:500}
+  backoff-max-ms: ${DELIVERY_BACKOFF_MAX_MS:30000}
+  delivered-guard-mode: ${DELIVERY_DELIVERED_GUARD_MODE:none}
+  dlq-archive-mode: ${DELIVERY_DLQ_ARCHIVE_MODE:none}
+  http:
+    connect-timeout-ms: ${DELIVERY_HTTP_CONNECT_TIMEOUT_MS:5000}
+    request-timeout-ms: ${DELIVERY_HTTP_REQUEST_TIMEOUT_MS:15000}
+    fcm-send-url: ${FCM_SEND_URL:}
+    fcm-bearer-token: ${FCM_BEARER_TOKEN:}
+    apns-device-url-prefix: ${APNS_DEVICE_URL_PREFIX:https://api.sandbox.push.apple.com/3/device/}
+    apns-topic: ${APNS_TOPIC:}
+    apns-auth-token: ${APNS_AUTH_TOKEN:}
+    email-webhook-url: ${EMAIL_WEBHOOK_URL:}
+
+pulsar:
+  service-url: ${PULSAR_SERVICE_URL:pulsar://localhost:6650}
+  dispatch-topic: ${PULSAR_DISPATCH_TOPIC:persistent://public/default/notification-dispatch}
+  dispatch-subscription: ${PULSAR_DISPATCH_DELIVERY_SUB:delivery-worker-dispatch}
+  retry-topic: ${PULSAR_DISPATCH_RETRY_TOPIC:persistent://public/default/notification-dispatch-retry}
+  retry-subscription: ${PULSAR_DISPATCH_RETRY_SUB:delivery-worker-retry}
+  dlq-topic: ${PULSAR_DISPATCH_DLQ_TOPIC:persistent://public/default/notification-dispatch-dlq}
+
+logging:
+  level:
+    com.pratyabhi.notification.delivery: INFO

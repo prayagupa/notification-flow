@@ -62,6 +62,36 @@ services:
       - postgres
       - redis
 
+  delivery-mocks:
+    image: wiremock/wiremock:3.3.1
+    ports:
+      - "8089:8080"
+    volumes:
+      - ./deploy/delivery-wiremock:/home/wiremock
+
+  delivery-worker:
+    build:
+      context: ..
+      dockerfile: notification-ingest/delivery-worker/Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      DELIVERY_PULSAR_ENABLED: "true"
+      PULSAR_SERVICE_URL: pulsar://pulsar:6650
+      PULSAR_DISPATCH_TOPIC: persistent://public/default/notification-dispatch
+      PULSAR_DISPATCH_RETRY_TOPIC: persistent://public/default/notification-dispatch-retry
+      PULSAR_DISPATCH_DLQ_TOPIC: persistent://public/default/notification-dispatch-dlq
+      FCM_SEND_URL: http://delivery-mocks:8080/fcm
+      FCM_BEARER_TOKEN: compose-dev-token
+      EMAIL_WEBHOOK_URL: http://delivery-mocks:8080/email
+      APNS_TOPIC: com.example.dev
+      APNS_AUTH_TOKEN: dummy-jwt-for-compose
+      APNS_DEVICE_URL_PREFIX: http://delivery-mocks:8080/apns/
+      DELIVERY_DELIVERED_GUARD_MODE: memory
+    depends_on:
+      - pulsar
+      - delivery-mocks
+
   prometheus:
     image: prom/prometheus:v3.1.0
     ports:
@@ -71,6 +101,7 @@ services:
     depends_on:
       - ingest-api
       - notification-router
+      - delivery-worker
 
 volumes:
   postgres-data:

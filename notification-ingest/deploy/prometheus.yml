@@ -11,3 +11,8 @@ scrape_configs:
     metrics_path: /actuator/prometheus
     static_configs:
       - targets: ["notification-router:8081"]
+
+  - job_name: delivery-worker
+    metrics_path: /actuator/prometheus
+    static_configs:
+      - targets: ["delivery-worker:8082"]

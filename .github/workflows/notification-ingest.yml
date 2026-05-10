@@ -38,5 +38,5 @@ jobs:
       - name: Buf lint (protobuf contracts)
         working-directory: notification-ingest/notification-contracts/proto
         run: buf lint
-      - name: Gradle build (contracts + ingest-api + notification-router)
+      - name: Gradle build (contracts + ingest-api + router + delivery-worker)
         run: chmod +x gradlew && ./gradlew build --no-daemon
