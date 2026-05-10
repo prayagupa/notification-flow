@@ -1,6 +1,6 @@
-package com.nepleaks.notification.ingest.web;
+package com.pratyabhi.notification.ingest.web;
 
-import com.nepleaks.notification.ingest.pulsar.ActivityEventPublisher;
+import com.pratyabhi.notification.ingest.pulsar.ActivityEventPublisher;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;

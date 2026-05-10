@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.pulsar;
+package com.pratyabhi.notification.ingest.pulsar;
 
 import nepleaks.events.v1.ActivityEvent;
 import org.slf4j.Logger;

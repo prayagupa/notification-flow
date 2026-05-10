@@ -1,4 +1,4 @@
-group = "com.nepleaks"
+group = "com.pratyabhi"
 version = "0.1.0-SNAPSHOT"
 
 subprojects {

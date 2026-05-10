@@ -1,10 +1,10 @@
-package com.nepleaks.notification.ingest.web;
+package com.pratyabhi.notification.ingest.web;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-@Schema(description = "HTTP mapping for nepleaks.events.v1.ActivityEvent (excluding server-generated event_id).")
+@Schema(description = "HTTP mapping for protobuf ActivityEvent (excluding server-generated event_id).")
 public record ActivityIngestRequest(
     @Schema(description = "Idempotent dedup key (also accepted as Idempotency-Key header)", example = "msg-2026-001")
         String idempotencyKey,

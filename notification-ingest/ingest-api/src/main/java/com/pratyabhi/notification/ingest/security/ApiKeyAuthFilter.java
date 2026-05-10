@@ -1,6 +1,6 @@
-package com.nepleaks.notification.ingest.security;
+package com.pratyabhi.notification.ingest.security;
 
-import com.nepleaks.notification.ingest.config.IngestProperties;
+import com.pratyabhi.notification.ingest.config.IngestProperties;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

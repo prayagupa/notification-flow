@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.web;
+package com.pratyabhi.notification.ingest.web;
 
 import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_COMMENT_CREATED;
 import static nepleaks.events.v1.ActivityType.ACTIVITY_TYPE_MESSAGE_SENT;

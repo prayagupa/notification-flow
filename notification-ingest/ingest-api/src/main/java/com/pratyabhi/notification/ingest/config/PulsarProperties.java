@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.config;
+package com.pratyabhi.notification.ingest.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 

@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.config;
+package com.pratyabhi.notification.ingest.config;
 
 import java.util.Arrays;
 import java.util.Collections;

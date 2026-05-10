@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.web;
+package com.pratyabhi.notification.ingest.web;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;

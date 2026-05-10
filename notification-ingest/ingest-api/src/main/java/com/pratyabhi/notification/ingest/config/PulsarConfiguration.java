@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.config;
+package com.pratyabhi.notification.ingest.config;
 
 import java.util.concurrent.TimeUnit;
 import org.apache.pulsar.client.api.Producer;

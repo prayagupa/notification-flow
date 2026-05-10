@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.security;
+package com.pratyabhi.notification.ingest.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

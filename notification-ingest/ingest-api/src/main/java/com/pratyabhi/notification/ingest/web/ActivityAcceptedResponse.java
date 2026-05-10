@@ -1,4 +1,4 @@
-package com.nepleaks.notification.ingest.web;
+package com.pratyabhi.notification.ingest.web;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 

@@ -1,7 +1,7 @@
-package com.nepleaks.notification.ingest;
+package com.pratyabhi.notification.ingest;
 
-import com.nepleaks.notification.ingest.config.IngestProperties;
-import com.nepleaks.notification.ingest.config.PulsarProperties;
+import com.pratyabhi.notification.ingest.config.IngestProperties;
+import com.pratyabhi.notification.ingest.config.PulsarProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration;

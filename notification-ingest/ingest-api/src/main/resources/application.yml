@@ -31,4 +31,4 @@ springdoc:
 
 logging:
   level:
-    com.nepleaks.notification.ingest: INFO
+    com.pratyabhi.notification.ingest: INFO
